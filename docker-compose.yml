@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8082:8082
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: arantessergio
+      ME_CONFIG_BASICAUTH_PASSWORD: MongoExpress2021!
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: MongoDB2021!
+    links:
+      - mongo
+    networks:
+      - mongo-compose-network
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/sergio/gitlab/docker-mongodb/Docker/Volumes/MongoDB:/data/db
+    networks:
+      - mongo-compose-network
+
+networks:
+  mongo-compose-network:
+    driver: bridge
